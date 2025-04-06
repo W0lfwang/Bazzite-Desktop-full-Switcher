@@ -20,7 +20,7 @@ Bazzite comes installed with two different display managers; SDDM ([Simple Deskt
 Gamemode also uses two sessions types wayland, and x11, x11 it's for gameode and wayland for desktop mode. We can use this information (by using `$XDG_SESSION_TYPE`) to choose what to do when launching our script and automating our options.
 
 ## 3 file system
-We use a 4 file system to achieve our goal:
+We use a 3 file system to achieve our goal:
 
 **The switcher script**
 - Description: This is the script that will make the display manager switch. (maybe I can use a flag so this calls the service)
