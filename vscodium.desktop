@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Bazzite Switcher
+Icon=/usr/local/share/icons/bazzite_switch.png
+Exec=/usr/local/bin/bazzite_switcher.sh %F
+Terminal=false
+Categories=Games
+Comment=Program to change bazzite desktop modes

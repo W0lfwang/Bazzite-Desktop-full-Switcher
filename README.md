@@ -34,6 +34,7 @@ We use a 3 file system to achieve our goal:
 **App Drawer**
 - Description: A desktop file use so the app can be launched from the GNOME app drawer.
 - located at: `/usr/share/applications/bazzite_switcher.desktop` or `/home/<USER>/.local/share/applications`
+- Icon can go to `/usr/local/share/icons/` Make folder if you need.
 
 ## Other comments
 we add `your_username ALL=(ALL) NOPASSWD: /bin/systemctl start bazzite_switcher.service` to visudo so we don't have a password prompt.
