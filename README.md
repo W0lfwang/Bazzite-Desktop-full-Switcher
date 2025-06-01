@@ -29,10 +29,11 @@ We use a 3 file system to achieve our goal:
 **Switch Service**
 - Description: Service to that will run the script (a service is needed to be use or session will not be terminated correctly).
 - located at: `/etc/systemd/system/bazzite_switcher.service`
+- Run `sudo systemctl daemon-reload`
 
 **App Drawer**
 - Description: A desktop file use so the app can be launched from the GNOME app drawer.
 - located at: `/usr/share/applications/bazzite_switcher.desktop`
 
 ## Other comments
-we add `your_username ALL=(ALL) NOPASSWD: /var/usrlocal/binbazzite_switcher.sh` to visudo so we don't have a password prompt.
+we add `your_username ALL=(ALL) NOPASSWD: /var/usrlocal/bin/bazzite_switcher.sh` to visudo so we don't have a password prompt.
