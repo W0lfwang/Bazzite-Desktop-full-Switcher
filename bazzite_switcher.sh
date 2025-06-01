@@ -7,8 +7,8 @@ if systemctl is-active sddm.service --quiet; then
     NEXT_DM="gdm"
 elif systemctl is-active gdm.service --quiet; then
     SYSTEM_MODE="D"
-    OLD_DM="sddm"
-    NEXT_DM="gdm"
+    OLD_DM="gdm"
+    NEXT_DM="sddm"
 else
     echo "$(date) - Error: A display manager different from gdm or sddm is being used, nothing to do" | systemd-cat -t bazzite_switcher
     exit 1
