@@ -1,0 +1,13 @@
+[Unit]
+Description=Switch to SDDM Display Manager
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/bazzite_switcher.sh d
+StandardOutput=journal
+StandardError=journal
+User=root
+
+[Install]
+WantedBy=multi-user.target
