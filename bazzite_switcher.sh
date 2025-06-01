@@ -29,33 +29,27 @@ if [ -z "$1" ]; then
 
     elif [ "$SYSTEM_MODE" == "G" ] && [ "$XDG_SESSION_TYPE" == "wayland" ]; then
         # This means we are in desktop mode from gamemode
-        PS3="You are in desktop from gamemode, what do you want to do? Please choose an option: "  # Prompt text
-        select option in "Return to gamemode" "Go to full desktop" "Cancel"; do
-            case $option in
-                "Return to gamemode")
-                    # Logic to return to gamemode
-                    echo "$(date) - Returning to gamemode..." | tee -a "$LOGFILE"
-                    # Implement logic to return to Gamemode here (e.g., stopping the service)
-                    break
-                    ;;
-                "Go to full desktop")
-                    # Logic to switch to full desktop mode
-                    echo "$(date) - Switching to full desktop..." | tee -a "$LOGFILE"
-                    if ! sudo systemctl start bazzite_switcher.service; then
-                        echo "$(date) - failed to start bazzite_switcher service" | tee -a "$LOGFILE" | systemd-cat -t bazzite_switcher
-                    fi
-                    break
-                    ;;
-                "Cancel")
-                    # Logic to cancel the action
-                    echo "$(date) - Action canceled." | tee -a "$LOGFILE"
-                    exit 1
-                    ;;
-                *)
-                    echo "Invalid option, please try again."
-                    ;;
-            esac
-        done
+        USER_CHOICE=$(zenity --list \
+            --title="Mode Switch" \
+            --text="You are in Desktop mode from Gamemode. What do you want to do?" \
+            --radiolist \
+            --column="Select" --column="Action" \
+            TRUE "Return to gamemode" \
+            FALSE "Go to full desktop" \
+            --width=200 --height=300)
+
+        case "$USER_CHOICE" in
+            "Return to gamemode")
+                echo "$(date) - Returning to gamemode..." | tee -a "$LOGFILE"
+                # Implement logic to return to gamemode here
+                ;;
+            "Go to full desktop")
+                echo "$(date) - Switching to full desktop..." | tee -a "$LOGFILE"
+                if ! sudo systemctl start bazzite_switcher.service; then
+                    echo "$(date) - failed to start bazzite_switcher service" | tee -a "$LOGFILE" | systemd-cat -t bazzite_switcher
+                fi
+                ;;
+        esac
 
     elif [ "$SYSTEM_MODE" == "D" ]; then
         # This means we are in desktop mode
