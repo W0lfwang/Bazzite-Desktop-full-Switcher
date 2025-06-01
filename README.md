@@ -23,8 +23,8 @@ Gamemode also uses two sessions types wayland, and x11, x11 it's for gameode and
 We use a 3 file system to achieve our goal:
 
 **The switcher script**
-- Description: This is the script that will make the display manager switch. (maybe I can use a flag so this calls the service)
-- located at: `/var/usrlocal/bin/bazzite_switcher.sh`
+- Description: This is the script that will make the display manager switch.
+- located at: `/usr/local/bin/bazzite_switcher.sh`
     
 **Switch Service**
 - Description: Service to that will run the script (a service is needed to be use or session will not be terminated correctly).
@@ -36,4 +36,4 @@ We use a 3 file system to achieve our goal:
 - located at: `/usr/share/applications/bazzite_switcher.desktop`
 
 ## Other comments
-we add `your_username ALL=(ALL) NOPASSWD: /var/usrlocal/bin/bazzite_switcher.sh` to visudo so we don't have a password prompt.
+we add `your_username ALL=(ALL) NOPASSWD: /bin/systemctl start bazzite_switcher.service` to visudo so we don't have a password prompt.

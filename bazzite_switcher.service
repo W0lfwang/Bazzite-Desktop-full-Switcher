@@ -1,10 +1,10 @@
 [Unit]
-Description=Switch to Bazzite Mode
+Description=Switch Bazzite Mode
 After=graphical-session.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/local/bin/bazzite_switcher.sh d
+ExecStart=/usr/local/bin/bazzite_switcher.sh s
 StandardOutput=journal
 StandardError=journal
 User=root
