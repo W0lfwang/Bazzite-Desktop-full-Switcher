@@ -5,6 +5,11 @@ This is a script is created specifically for Bazzite where desktop environment i
 
 The idea of this is for you to have a simple way to convert your gaming computer/handheld into a regular desktop PC without loosing both features.
 
+# Install Script
+Download and unzip
+run: `sudo chmod +x Install.sh`
+than you can execute Install.sh, which is a simple automatically installing script 
+
 # Description
 With this script or "button", you can change the behavior of your Bazzite computer/handheld to start in full GNOME mode instead of the steam gamemode, this will allow you to use GNOME login system and screen lock feature, making your computer to work more like a desktop instead of a console, without loosing that feature all together as you can switch between modes anytime without even needing to restart your PC.
 
