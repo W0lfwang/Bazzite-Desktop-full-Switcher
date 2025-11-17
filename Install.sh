@@ -23,7 +23,6 @@ fi
 # Move the systemd service file
 echo "🛠️ Installing systemd service..."
 if sudo cp bazzite_switcher.service /etc/systemd/system/bazzite_switcher.service; then
-    sudo systemctl daemon-reexec || echo "⚠️ Warning: daemon-reexec failed."
     sudo systemctl daemon-reload || echo "⚠️ Warning: daemon-reload failed."
 else
     echo "❌ Failed to copy bazzite_switcher.service to /etc/systemd/system/"
