@@ -86,6 +86,16 @@ fi
 echo
 
 # -------------------------------------------------------------------
+#  EXIT HERE IF NO FILES WERE FOUND
+# -------------------------------------------------------------------
+
+if [ ${#found[@]} -eq 0 ]; then
+    echo -e "${BLUE}${BOLD}No existing files were found. Nothing to remove.${RESET}"
+    echo -e "${GREEN}Exiting.${RESET}"
+    exit 0
+fi
+
+# -------------------------------------------------------------------
 #  CONFIRMATION (Repeats if empty)
 # -------------------------------------------------------------------
 
