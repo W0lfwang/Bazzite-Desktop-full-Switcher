@@ -51,7 +51,7 @@ fi
 
 # Move Icon too
 echo "🖼️ Installing icon..."
-if sudo cp resources/bazzite_switch.png /usr/local/share/icons/; then
+if sudo cp resources/bazzite_switcher.png /usr/local/share/icons/bazzite_switcher.png; then
     echo "✅ Icon installed to /usr/local/share/icons/"
 else
     echo "❌ Failed to copy icon to /usr/local/share/icons/"
