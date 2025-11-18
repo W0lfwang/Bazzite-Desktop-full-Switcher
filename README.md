@@ -26,7 +26,7 @@ In my case, I have a Lenovo Legion Go that I use as my personal computer/tablet/
 ## Theory
 Bazzite comes installed with two different display managers; SDDM ([Simple Desktop Display Manager](https://github.com/sddm/sddm/)) and GDM ([GNOME Display Manager](https://wiki.gnome.org/Projects/GDM)). SDDM takes care of all the Gamemode login and it's the only one that is normally working. So by changing the display manager to GDM, regular GNOME will start.
 
-Gamemode also uses two sessions types wayland, and x11, x11 it's for gameode and wayland for desktop mode. We can use this information (by using `$XDG_SESSION_TYPE`) to choose what to do when launching our script and automating our options.
+Bazzite uses SYSTEM_MODE = gamescope-session when running in gamemode. with this information we can choose different option for our script to do different things depending on the session we are using.
 
 ## 3 file system
 We use a 3 file system to achieve our goal:
