@@ -8,7 +8,9 @@ if ! cat /etc/*-release | grep "Bazzite"; then
     exit 1
 fi
 
-echo "✅ Bazzite OS detected. Proceeding with installation..."
+echo "
+✅ Bazzite OS detected. Proceeding with installation...
+"
 
 # Move the switcher script
 echo "📦 Copying switcher script..."
@@ -23,7 +25,7 @@ else
 fi
 
 # Move the systemd service file
-echo "🛠️ Installing systemd service..."
+echo "🛠️  Installing systemd service..."
 if sudo cp scripts/bazzite_switcher.service /etc/systemd/system/bazzite_switcher.service; then
     sudo systemctl daemon-reload || echo "⚠️ Warning: daemon-reload failed."
 else
@@ -32,7 +34,7 @@ else
 fi
 
 # Try Copying the desktop launcher to system-wide location
-echo "🧩  Installing desktop launcher..."
+echo "🧩 Installing desktop launcher..."
 if sudo cp scripts/bazzite_switcher.desktop /usr/share/applications/bazzite_switcher.desktop 2>/dev/null; then
     echo "✅ Desktop file installed to /usr/share/applications!"
 else
@@ -52,7 +54,7 @@ else
 fi
 
 # Move Icon too
-echo "🖼️ Installing icon..."
+echo "🖼️  Installing icon..."
 if sudo cp resources/bazzite_switcher.png /usr/local/share/icons/bazzite_switcher.png; then
     echo "✅ Icon installed to /usr/local/share/icons/"
 else
@@ -60,6 +62,7 @@ else
     exit 1
 fi
 
+echo
 echo "🎉 Installation complete."
 
 echo "
