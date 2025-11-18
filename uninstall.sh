@@ -19,7 +19,7 @@ FILES=(
 )
 
 # -------------------------------------------------------------------
-#  PRECHECK: Verify sddm.service is active
+#  PRE-CHECK: Verify sddm.service is active
 # -------------------------------------------------------------------
 
 echo -e "${BLUE}${BOLD}Checking sddm.service status...${RESET}"
@@ -28,8 +28,8 @@ if ! systemctl is-active sddm.service --quiet; then
     echo -e "
 ${RED}${BOLD}WARNING:${RESET} sddm.service is NOT active.
 ${YELLOW}This means you are probably on full desktop mode (using GNOME Display Manager)
-the switcher service can make difficult for you to return Bazzite's original behavior,
-I recommend that you run the switcher first before running the uninstall script
+removing the switcher service can make difficult for you to return Bazzite's original 
+behavior, I recommend that you run the switcher first before running the uninstall script
 
 To proceed, type: ${BOLD}continue${RESET}"
 
@@ -153,3 +153,8 @@ sudo systemctl daemon-reload
 
 echo
 echo -e "${GREEN}${BOLD}Done.${RESET}"
+
+echo -e "${YELLOW}
+'${USERNAME} ALL=(ALL) NOPASSWD: /bin/systemctl start bazzite_switcher.service'
+was not removed from visudo, that should be done manually, run sudo visudo to edit
+and remove the line."

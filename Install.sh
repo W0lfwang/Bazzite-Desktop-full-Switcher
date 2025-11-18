@@ -1,5 +1,7 @@
 #!/bin/bash
 
+USERNAME=$(whoami)
+
 # Check if the OS is Bazzite
 if ! cat /etc/*-release | grep "Bazzite"; then
     echo "❌ This script is intended for Bazzite OS only. Exiting."
@@ -59,4 +61,12 @@ else
 fi
 
 echo "🎉 Installation complete."
+
+echo "
+Running the button or service will prompt for password each time, to avoid this you can edit visudo
+running sudo visudo and adding this line at the end:
+
+${USERNAME} ALL=(ALL) NOPASSWD: /bin/systemctl start bazzite_switcher.service'
+
+using vi might be confusing, please google it or see a youtube video about it."
 
