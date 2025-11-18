@@ -16,39 +16,42 @@ fi
 
 # If argument is not given, that means we are user invoke, we will call the service
 if [ -z "$1" ]; then
-    if [ "$SYSTEM_MODE" == "G" ] && [ "$XDG_SESSION_TYPE" == "x11" ]; then
-        echo "$(date) - Full gamemode running" | systemd-cat -t bazzite_switcher
-        if ! sudo systemctl start bazzite_switcher.service; then
-            echo "$(date) - failed to start bazzite_switcher service" | systemd-cat -t bazzite_switcher
-            exit 1
+    if [ "$SYSTEM_MODE" == "G" ]; then
+
+        if [ "$DESKTOP_SESSION" == "gamescope-session" ]; then
+            echo "$(date) - Full gamemode running" | systemd-cat -t bazzite_switcher
+            if ! sudo systemctl start bazzite_switcher.service; then
+                echo "$(date) - failed to start bazzite_switcher service" | systemd-cat -t bazzite_switcher
+                exit 1
+            fi
+
+        else
+            echo "$(date) - Desktop from gamemode running" | systemd-cat -t bazzite_switcher
+            USER_CHOICE=$(zenity --list \
+                --title="Mode Switch" \
+                --text="You are in Desktop mode from Gamemode. What do you want to do?" \
+                --radiolist \
+                --column="Select" --column="Action" \
+                TRUE "Return to gamemode" \
+                FALSE "Go to full desktop" \
+                --width=200 --height=300)
+
+            case "$USER_CHOICE" in
+                "Return to gamemode")
+                    echo "$(date) - Returning to gamemode..." | systemd-cat -t bazzite_switcher
+                    gnome-session-quit --no-prompt
+                    # Implement logic to return to gamemode here
+                    ;;
+                "Go to full desktop")
+                    echo "$(date) - Switching to full desktop..." | systemd-cat -t bazzite_switcher
+                    if ! sudo systemctl start bazzite_switcher.service; then
+                        echo "$(date) - failed to start bazzite_switcher service" | systemd-cat -t bazzite_switcher
+                        exit 1
+                    fi
+                    gnome-session-quit --no-prompt
+                    ;;
+            esac
         fi
-
-    elif [ "$SYSTEM_MODE" == "G" ] && [ "$XDG_SESSION_TYPE" == "wayland" ]; then
-        echo "$(date) - Desktop from gamemode running" | systemd-cat -t bazzite_switcher
-        USER_CHOICE=$(zenity --list \
-            --title="Mode Switch" \
-            --text="You are in Desktop mode from Gamemode. What do you want to do?" \
-            --radiolist \
-            --column="Select" --column="Action" \
-            TRUE "Return to gamemode" \
-            FALSE "Go to full desktop" \
-            --width=200 --height=300)
-
-        case "$USER_CHOICE" in
-            "Return to gamemode")
-                echo "$(date) - Returning to gamemode..." | systemd-cat -t bazzite_switcher
-                gnome-session-quit --no-prompt
-                # Implement logic to return to gamemode here
-                ;;
-            "Go to full desktop")
-                echo "$(date) - Switching to full desktop..." | systemd-cat -t bazzite_switcher
-                if ! sudo systemctl start bazzite_switcher.service; then
-                    echo "$(date) - failed to start bazzite_switcher service" | systemd-cat -t bazzite_switcher
-                    exit 1
-                fi
-                gnome-session-quit --no-prompt
-                ;;
-        esac
 
     elif [ "$SYSTEM_MODE" == "D" ]; then
         echo "$(date) - Full Desktop mode running" | systemd-cat -t bazzite_switcher
