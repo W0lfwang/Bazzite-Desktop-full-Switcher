@@ -4,7 +4,7 @@ USERNAME=$(whoami)
 USER_APP_DIR="/home/$USERNAME/.local/share/applications"
 
 # Check if the OS is Bazzite
-if ! cat /etc/*-release | grep "Bazzite"; then
+if ! grep -qi "bazzite" /etc/os-release; then
     echo "❌ This script is intended for Bazzite OS only. Exiting."
     exit 1
 fi
@@ -15,7 +15,7 @@ echo "
 
 # switcher script
 echo "📁 Checking /usr/local/bin existence"
-if mkdir -p /usr/local/bin; then
+if sudo mkdir -p /usr/local/bin; then
     echo "✅ /usr/local/bin checked"
 else
     echo "❌ /usr/local/bin Folder missing and cannot be created"
@@ -35,7 +35,7 @@ fi
 
 # systemd service
 echo "📁 Checking /etc/systemd/system existence"
-if mkdir -p /etc/systemd/system; then
+if sudo mkdir -p /etc/systemd/system; then
     echo "✅ /etc/systemd/system checked"
 else
     echo "❌ /etc/systemd/system Folder missing and cannot be created"
@@ -52,7 +52,7 @@ fi
 
 # desktop launcher
 echo "📁 Checking /usr/share/applications existence"
-if mkdir -p /usr/share/applications; then
+if sudo mkdir -p /usr/share/applications; then
     echo "✅ /usr/share/applications checked"
     echo "🧩 Installing desktop launcher..."
     if sudo cp scripts/bazzite_switcher.desktop /usr/share/applications/bazzite_switcher.desktop 2>/dev/null; then
@@ -68,13 +68,14 @@ else
     ALTERNATIVE=1
 fi
 
-if [ ALTERNATIVE 1 ];
+if [ "$ALTERNATIVE" -eq 1 ]; then
     echo "📁 Checking $USER_APP_DIR existence"
     
     if mkdir -p "$USER_APP_DIR"; then
         echo "✅ $USER_APP_DIR checked"
         echo "🧩 Installing desktop launcher..."
-        if sudo cp scripts/bazzite_switcher.desktop "$USER_APP_DIR/bazzite_switcher.desktop"; then
+
+        if cp scripts/bazzite_switcher.desktop "$USER_APP_DIR/bazzite_switcher.desktop"; then
             echo "✅ Installed to $USER_APP_DIR!"
         else
             echo "❌ Failed to copy desktop file to $USER_APP_DIR"
@@ -84,13 +85,14 @@ if [ ALTERNATIVE 1 ];
     else
         echo "❌ Failed to create user applications directory: $USER_APP_DIR"
         exit 1
+    fi
 fi
 
 
 # Icon
 
 echo "📁 Checking /usr/local/share/icons existence"
-if mkdir -p /usr/local/share/icons; then
+if sudo mkdir -p /usr/local/share/icons; then
     echo "✅ /usr/local/share/icons checked"
 else
     echo "❌ /usr/local/share/icons Folder missing and cannot be created"
@@ -112,6 +114,6 @@ echo "
 Running the button or service will prompt for password each time, to avoid this you can edit visudo
 running sudo visudo and adding this line at the end:
 
-${USERNAME} ALL=(ALL) NOPASSWD: /bin/systemctl start bazzite_switcher.service'
+${USERNAME} ALL=(ALL) NOPASSWD: /bin/systemctl start bazzite_switcher.service
 
 using vi might be confusing, please google it or see a youtube video about it."
